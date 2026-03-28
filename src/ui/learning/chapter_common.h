@@ -3,12 +3,6 @@
 
 #include <gtk/gtk.h>
 
-GtkWidget *heaplens_learning_build_chapter_page(const char *title,
-                                                const char *summary,
-                                                const char *const topics[],
-                                                size_t topic_count,
-                                                const char *interactive_note,
-                                                const char *code_block,
-                                                GtkWidget *extra_widget);
+GtkWidget *heaplens_learning_build_chapter_page(int chapter_id);
 
 #endif

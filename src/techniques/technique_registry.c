@@ -1,6 +1,7 @@
 #include "technique_registry.h"
 
 #include <glib.h>
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -129,6 +130,19 @@ static const char *heaplens_category_functions(const char *category) {
     return "Relevant glibc functions: __libc_malloc, __libc_free, _int_malloc, _int_free";
 }
 
+static bool heaplens_glibc_runtime_available(const char *glibc_version) {
+    char loader_path[PATH_MAX];
+    char libc_path[PATH_MAX];
+
+    if (!glibc_version || !glibc_version[0]) {
+        return false;
+    }
+
+    snprintf(loader_path, sizeof(loader_path), "glibc/%s/lib/ld.so", glibc_version);
+    snprintf(libc_path, sizeof(libc_path), "glibc/%s/lib/libc.so.6", glibc_version);
+    return access(loader_path, R_OK) == 0 && access(libc_path, R_OK) == 0;
+}
+
 size_t heaplens_technique_registry_count(void) {
     return G_N_ELEMENTS(heaplens_techniques);
 }
@@ -147,6 +161,10 @@ const HeapLensTechniqueInfo *heaplens_technique_registry_find_by_label(const cha
     return NULL;
 }
 
+bool heaplens_technique_registry_has_glibc_runtime(const char *glibc_version) {
+    return heaplens_glibc_runtime_available(glibc_version);
+}
+
 bool heaplens_technique_registry_resolve_binary(const HeapLensTechniqueInfo *info,
                                                 const char *glibc_version,
                                                 char *buffer,
@@ -155,7 +173,7 @@ bool heaplens_technique_registry_resolve_binary(const HeapLensTechniqueInfo *inf
         return false;
     }
 
-    if (glibc_version && glibc_version[0]) {
+    if (heaplens_glibc_runtime_available(glibc_version)) {
         snprintf(buffer, buffer_size, "build/demos/%s/demo_%s_%s", glibc_version, info->id, glibc_version);
         if (access(buffer, X_OK) == 0) {
             return true;
@@ -167,7 +185,7 @@ bool heaplens_technique_registry_resolve_binary(const HeapLensTechniqueInfo *inf
         return true;
     }
 
-    if (glibc_version && glibc_version[0]) {
+    if (heaplens_glibc_runtime_available(glibc_version)) {
         snprintf(buffer, buffer_size, "build/demos/%s/demo_generic_demo_%s", glibc_version, glibc_version);
         if (access(buffer, X_OK) == 0) {
             return true;

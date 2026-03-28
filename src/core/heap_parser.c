@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "symbol_resolver.h"
 #include "tcache_parser.h"
 
 static bool heaplens_heap_chunk_validate(uint64_t address,
@@ -66,6 +67,8 @@ bool heaplens_heap_parser_scan_heap(HeapLensMemoryReader *reader,
                                     HeapLensHeapSnapshot *out_snapshot) {
     HeapLensMemoryMapSnapshot maps;
     const HeapLensMemoryMapEntry *heap_map = NULL;
+    HeapLensResolvedSymbol libc_module;
+    HeapLensResolvedSymbol main_arena;
     uint64_t cursor = 0;
     size_t chunk_count = 0;
     bool have_tcache = false;
@@ -89,6 +92,14 @@ bool heaplens_heap_parser_scan_heap(HeapLensMemoryReader *reader,
 
     out_snapshot->heap_start = heap_map->start;
     out_snapshot->heap_end = heap_map->end;
+    memset(&libc_module, 0, sizeof(libc_module));
+    memset(&main_arena, 0, sizeof(main_arena));
+    if (heaplens_symbol_find_module(pid, "libc", &libc_module) &&
+        heaplens_symbol_resolve(libc_module.module_path, libc_module.module_base, "main_arena", &main_arena) &&
+        heaplens_heap_parser_read_arena(reader, main_arena.address, &out_snapshot->arena)) {
+        out_snapshot->have_arena = true;
+    }
+
     out_snapshot->chunks = calloc(max_chunks, sizeof(*out_snapshot->chunks));
     if (!out_snapshot->chunks) {
         heaplens_memory_map_snapshot_free(&maps);

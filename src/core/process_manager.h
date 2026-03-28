@@ -16,6 +16,7 @@ typedef struct {
     bool running;
     bool traced;
     char binary_path[PATH_MAX];
+    char preload_library[PATH_MAX];
     char glibc_version[16];
     char last_stage[128];
     HeapLensMemoryReader reader;
@@ -24,6 +25,7 @@ typedef struct {
 bool heaplens_process_spawn(HeapLensTargetProcess *process,
                             const char *binary_path,
                             const char *glibc_version,
+                            const char *preload_library,
                             char *const argv[]);
 bool heaplens_process_continue(HeapLensTargetProcess *process);
 bool heaplens_process_wait_for_stage(HeapLensTargetProcess *process,

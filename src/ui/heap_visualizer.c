@@ -224,7 +224,7 @@ static void heaplens_heap_visualizer_clicked(GtkGestureClick *gesture,
 }
 
 GtkWidget *heaplens_heap_visualizer_new(void) {
-    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
+    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     GtkWidget *title = gtk_label_new("Real-time Heap Visualizer");
     GtkWidget *drawing = gtk_drawing_area_new();
     GtkWidget *details_scroller = gtk_scrolled_window_new();
@@ -237,8 +237,8 @@ GtkWidget *heaplens_heap_visualizer_new(void) {
     state->selected_index = -1;
     g_object_set_data_full(G_OBJECT(root), "heaplens-heap-viz-state", state, heaplens_heap_visualizer_state_free);
 
-    gtk_widget_add_css_class(root, "card");
-    gtk_widget_add_css_class(title, "title");
+    gtk_widget_add_css_class(root, "panel");
+    gtk_widget_add_css_class(title, "panel-heading");
     gtk_label_set_xalign(GTK_LABEL(title), 0.0f);
     gtk_widget_set_hexpand(drawing, TRUE);
     gtk_widget_set_vexpand(drawing, TRUE);
@@ -246,6 +246,8 @@ GtkWidget *heaplens_heap_visualizer_new(void) {
     gtk_text_view_set_editable(GTK_TEXT_VIEW(details), FALSE);
     gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(details), FALSE);
     gtk_text_view_set_monospace(GTK_TEXT_VIEW(details), TRUE);
+    gtk_widget_add_css_class(details, "monospace");
+    gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(details_scroller), TRUE);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(details_scroller), details);
     gtk_widget_set_vexpand(details_scroller, TRUE);
 
