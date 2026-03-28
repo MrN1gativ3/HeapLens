@@ -1,0 +1,13 @@
+build/
+*.o
+*.so
+*.a
+*.out
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.log
+*.tmp
+*.swp
+*.DS_Store

@@ -1,0 +1,60 @@
+:root {
+  --heaplens-bg: #12161c;
+  --heaplens-panel: #1b222c;
+  --heaplens-panel-alt: #212a35;
+  --heaplens-accent: #63c5a8;
+  --heaplens-accent-strong: #8ad6ff;
+  --heaplens-danger: #ef6d6d;
+  --heaplens-warning: #f4c95d;
+  --heaplens-text: #eef2f6;
+  --heaplens-muted: #9fabb9;
+}
+
+window {
+  background: linear-gradient(180deg, #0d1117 0%, #141a22 100%);
+  color: var(--heaplens-text);
+}
+
+box.panel,
+frame,
+scrolledwindow,
+listbox,
+textview,
+entry,
+dropdown,
+button,
+combobox,
+headerbar {
+  background: var(--heaplens-panel);
+  color: var(--heaplens-text);
+}
+
+.card {
+  background: var(--heaplens-panel-alt);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--heaplens-muted);
+}
+
+.badge-active {
+  background: rgba(99, 197, 168, 0.18);
+  color: var(--heaplens-accent);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+.badge-inactive {
+  background: rgba(239, 109, 109, 0.18);
+  color: var(--heaplens-danger);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
