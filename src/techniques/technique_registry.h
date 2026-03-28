@@ -14,6 +14,7 @@ typedef struct {
 size_t heaplens_technique_registry_count(void);
 const HeapLensTechniqueInfo *heaplens_technique_registry_get(size_t index);
 const HeapLensTechniqueInfo *heaplens_technique_registry_find_by_label(const char *label);
+bool heaplens_technique_registry_has_glibc_runtime(const char *glibc_version);
 bool heaplens_technique_registry_resolve_binary(const HeapLensTechniqueInfo *info,
                                                 const char *glibc_version,
                                                 char *buffer,

@@ -58,6 +58,7 @@ HeapLens/
 
 1. Clone the repository on a Linux `x86_64` machine.
 2. Optionally place version-specific glibc loader/runtime files under `glibc/<version>/lib/`.
+   Or run `./scripts/install_glibc_bundles.sh` to populate the supported amd64 versions from `matrix1001/glibc-all-in-one`.
 3. Run the top-level Makefile:
 
 ```bash
@@ -167,6 +168,7 @@ Categories=Development;Security;
 - The UI lets you pick versions such as `2.23`, `2.27`, `2.29`, `2.31`, `2.32`, `2.34`, `2.35`, `2.38`, and `2.39`.
 - The corresponding demo binaries are built into per-version folders under `build/demos/`.
 - To make version-specific runtime behavior meaningful, populate `glibc/<version>/lib/` with the matching `ld.so` and `libc.so.6` files before building demos.
+- If no runtime bundle exists for the selected version, HeapLens falls back to the native demo binary and logs that fallback in the trace panel.
 
 ## Troubleshooting
 

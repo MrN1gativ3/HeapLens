@@ -62,7 +62,7 @@ static void heaplens_memory_map_panel_clear(GtkWidget *list) {
 }
 
 GtkWidget *heaplens_memory_map_panel_new(void) {
-    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
+    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     GtkWidget *title = gtk_label_new("Live /proc/<pid>/maps");
     GtkWidget *list_scroller = gtk_scrolled_window_new();
     GtkWidget *list = gtk_list_box_new();
@@ -73,12 +73,13 @@ GtkWidget *heaplens_memory_map_panel_new(void) {
     state->details = details;
     g_object_set_data_full(G_OBJECT(root), "heaplens-memory-map-state", state, heaplens_memory_map_panel_destroy);
 
-    gtk_widget_add_css_class(root, "card");
-    gtk_widget_add_css_class(title, "title");
+    gtk_widget_add_css_class(root, "panel");
+    gtk_widget_add_css_class(title, "panel-heading");
     gtk_label_set_xalign(GTK_LABEL(title), 0.0f);
     gtk_label_set_xalign(GTK_LABEL(details), 0.0f);
     gtk_label_set_wrap(GTK_LABEL(details), TRUE);
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(list), GTK_SELECTION_SINGLE);
+    gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(list_scroller), TRUE);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(list_scroller), list);
     gtk_widget_set_vexpand(list_scroller, TRUE);
 

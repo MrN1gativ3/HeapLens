@@ -1,0 +1,19 @@
+[package]
+name = "heaplens"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+gio = "0.19"
+glib = "0.19"
+gtk4 = { version = "0.8", features = ["v4_14"] }
+libc = "0.2"
+vte4 = "0.7"
+
+[profile.dev]
+debug = 1
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
