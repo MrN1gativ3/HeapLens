@@ -198,13 +198,13 @@ bool heaplens_technique_registry_resolve_binary(const HeapLensTechniqueInfo *inf
 
 char *heaplens_technique_registry_build_theory(const HeapLensTechniqueInfo *info, const char *glibc_version) {
     if (!info) {
-        return g_strdup("Select a technique to load its theory sidebar.");
+        return g_strdup("Select a technique to load its operation notes.");
     }
 
     return g_strdup_printf(
         "Technique: %s\nCategory: %s\nglibc target: %s\n\n"
         "Overview:\n"
-        "This lesson walks through %s with an emphasis on allocator state transitions and why the primitive works. "
+        "This walkthrough focuses on %s as a live exploitation exercise with an emphasis on allocator state transitions and why the primitive works. "
         "Use the heap visualizer, register panel, and syscall trace together so the metadata story stays anchored to a live process.\n\n"
         "Prerequisites:\n"
         "- Match the glibc version note embedded in the technique title.\n"
@@ -224,7 +224,7 @@ char *heaplens_technique_registry_build_theory(const HeapLensTechniqueInfo *info
         "- Clobbering flag bits and tripping allocator sanity checks.\n"
         "- Ignoring safe-linking or tcache-key behavior on newer builds.\n\n"
         "Real-world CVEs:\n"
-        "Use this sidebar as the live lab companion and extend it with technique-specific case studies as you expand the demo set.\n\n"
+        "Use these notes as the live execution companion and extend them with technique-specific case studies as you expand the demo set.\n\n"
         "What just happened?\n"
         "Watch for list-head changes, chunk-size drift, and control-data reuse after each stage.",
         info->label,

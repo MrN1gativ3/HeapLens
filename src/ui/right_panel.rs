@@ -27,6 +27,7 @@ impl RightPanelView {
         let info = InfoTabView::new();
 
         root.add_css_class("right-panel-tabs");
+        root.set_vexpand(true);
         root.set_size_request(228, -1);
         root.append_page(&heap.root, Some(&tab_label("HEAP")));
         root.append_page(&trace.root, Some(&tab_label("TRACE")));

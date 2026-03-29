@@ -1,6 +1,5 @@
 mod app;
 mod ffi;
-mod learning;
 mod ui;
 
 use std::fs;

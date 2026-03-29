@@ -144,7 +144,7 @@ impl AppState {
             using_custom_target: Cell::new(false),
             custom_binary: RefCell::new(String::new()),
             custom_library: RefCell::new(String::new()),
-            trace_lines: RefCell::new(vec!["Exploit lab ready.".to_string()]),
+            trace_lines: RefCell::new(vec!["Exploitation workspace ready.".to_string()]),
             disasm_text: RefCell::new("No disassembly loaded.".to_string()),
             last_event: RefCell::new("ready".to_string()),
             previous_registers: RefCell::new(Vec::new()),
@@ -270,7 +270,7 @@ impl AppState {
             )
         } else {
             format!(
-                "Custom target active.\nBinary: {}\nOptional library: {}\nRun and Step will trace the imported challenge target while technique notes, mitigations, and theory stay aligned to the current selection.\n{}",
+                "Custom target active.\nBinary: {}\nOptional library: {}\nRun and Step will trace the imported target while technique notes and mitigations stay aligned to the current selection.\n{}",
                 binary,
                 if library.is_empty() { "None" } else { library },
                 glibc_note

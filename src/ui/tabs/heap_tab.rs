@@ -22,6 +22,7 @@ impl HeapTabView {
         let content = gtk::Box::new(gtk::Orientation::Vertical, 2);
 
         root.add_css_class("heap-tab");
+        root.set_vexpand(true);
         header.add_css_class("heap-heading");
         title.add_css_class("heap-title");
         summary.add_css_class("heap-summary");
@@ -32,7 +33,10 @@ impl HeapTabView {
         header.append(&spacer);
         header.append(&summary);
 
+        scroller.set_hexpand(true);
         scroller.set_vexpand(true);
+        scroller.set_propagate_natural_height(false);
+        scroller.set_propagate_natural_width(false);
         scroller.set_child(Some(&content));
 
         root.append(&header);

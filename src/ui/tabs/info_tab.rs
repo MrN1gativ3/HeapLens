@@ -19,16 +19,21 @@ impl InfoTabView {
         let content = gtk::Box::new(gtk::Orientation::Vertical, 10);
         let title = gtk::Label::new(Some("WAITING"));
         let subtitle = gtk::Label::new(Some("Select a technique"));
-        let body = gtk::Label::new(Some("Technique theory will appear here."));
+        let body = gtk::Label::new(Some("Technique notes will appear here."));
         let detail = gtk::Label::new(Some(""));
         let diagram = gtk::Label::new(Some(""));
         let alert = gtk::Label::new(Some(""));
         let logs = gtk::Label::new(Some(""));
 
+        root.set_hexpand(true);
+        root.set_vexpand(true);
+        root.set_propagate_natural_height(false);
+        root.set_propagate_natural_width(false);
         content.set_margin_top(10);
         content.set_margin_bottom(10);
         content.set_margin_start(10);
         content.set_margin_end(10);
+        content.set_valign(gtk::Align::Start);
 
         title.add_css_class("info-title");
         subtitle.add_css_class("info-subtitle");

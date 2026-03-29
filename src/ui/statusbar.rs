@@ -21,16 +21,24 @@ impl StatusbarView {
 
         root.add_css_class("statusbar");
         root.set_size_request(-1, 22);
+        root.set_hexpand(true);
         left.add_css_class("status-left");
         center.add_css_class("status-center");
         right.add_css_class("status-right");
         left.set_xalign(0.0);
         center.set_xalign(0.5);
         right.set_xalign(1.0);
-        left_box.set_hexpand(false);
+        for label in [&left, &center, &right] {
+            label.set_single_line_mode(true);
+            label.set_ellipsize(gtk::pango::EllipsizeMode::End);
+            label.set_hexpand(true);
+        }
+
+        left_box.set_hexpand(true);
         center_box.set_hexpand(true);
-        right_box.set_hexpand(false);
-        center_box.set_halign(gtk::Align::Center);
+        right_box.set_hexpand(true);
+        left_box.set_halign(gtk::Align::Fill);
+        center_box.set_halign(gtk::Align::Fill);
         right_box.set_halign(gtk::Align::End);
         left_box.append(&left);
         center_box.append(&center);
