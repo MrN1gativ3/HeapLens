@@ -14,7 +14,11 @@ impl ProcTabView {
         let content = gtk::Box::new(gtk::Orientation::Vertical, 0);
 
         root.add_css_class("proc-tab");
+        root.set_vexpand(true);
+        scroller.set_hexpand(true);
         scroller.set_vexpand(true);
+        scroller.set_propagate_natural_height(false);
+        scroller.set_propagate_natural_width(false);
         scroller.set_child(Some(&content));
         root.append(&scroller);
 
@@ -37,6 +41,7 @@ impl ProcTabView {
             detail.add_css_class("proc-value");
             name.set_xalign(0.0);
             detail.set_xalign(1.0);
+            detail.set_ellipsize(gtk::pango::EllipsizeMode::Middle);
             spacer.set_hexpand(true);
 
             if let Some((lhs, rhs)) = line.split_once(':') {

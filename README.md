@@ -1,6 +1,6 @@
 # HeapLens
 
-HeapLens is a Linux `x86_64` desktop application for learning glibc heap internals and stepping through heap exploitation techniques against small demo binaries.
+HeapLens is a Linux `x86_64` desktop application for practical glibc heap exploitation work against small demo binaries.
 
 The current codebase is split into two active layers:
 
@@ -15,8 +15,7 @@ The older C-only GUI has been removed from the active tree. The build now produc
 
 ## Features
 
-- Learning mode with allocator concept chapters and challenge panes
-- Exploit lab with technique list, disassembly, register, process, and heap views
+- Single practical exploitation workspace with technique list, disassembly, register, process, heap, and notes views
 - ptrace-based process control and `/proc/<pid>/mem` inspection
 - Capstone-backed disassembly through the C core
 - Versioned demo runtime support via bundled glibc trees
@@ -70,7 +69,6 @@ HeapLens/
     ├── ffi.rs
     ├── main.rs
     ├── core/
-    ├── learning/
     ├── techniques/
     └── ui/
 ```

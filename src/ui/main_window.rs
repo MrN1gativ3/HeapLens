@@ -4,12 +4,10 @@ use gtk::prelude::*;
 use gtk4 as gtk;
 
 use crate::app::AppState;
-use crate::learning::chapter_view::build_learning_page;
 use crate::ui::disasm_view::DisasmView;
 use crate::ui::menubar::MenuBarView;
 use crate::ui::right_panel::RightPanelView;
 use crate::ui::statusbar::StatusbarView;
-use crate::ui::tab_bar::TabBarView;
 use crate::ui::technique_list::TechniqueListView;
 use crate::ui::toolbar::ToolbarView;
 
@@ -26,22 +24,15 @@ pub fn build_main_window(
     let root = gtk::Box::new(gtk::Orientation::Vertical, 0);
     let menubar = MenuBarView::new();
     let toolbar = ToolbarView::new();
-    let stack = gtk::Stack::new();
-    let tab_bar = TabBarView::new(&stack);
     let statusbar = StatusbarView::new();
     let exploit_page = build_exploit_page(&state, &toolbar, &statusbar);
-    let learning_page = build_learning_page();
 
-    stack.set_hexpand(true);
-    stack.set_vexpand(true);
-    stack.add_named(&learning_page, Some("learning"));
-    stack.add_named(&exploit_page, Some("exploit"));
-    stack.set_visible_child_name("exploit");
+    exploit_page.set_hexpand(true);
+    exploit_page.set_vexpand(true);
 
     root.append(&menubar.root);
     root.append(&toolbar.root);
-    root.append(&tab_bar.root);
-    root.append(&stack);
+    root.append(&exploit_page);
     root.append(&statusbar.root);
     window.set_child(Some(&root));
     window.maximize();
@@ -68,11 +59,11 @@ fn build_exploit_page(
     root.set_resize_start_child(false);
     root.set_resize_end_child(true);
     root.set_shrink_start_child(false);
-    root.set_shrink_end_child(false);
+    root.set_shrink_end_child(true);
     center_split.set_resize_start_child(true);
     center_split.set_resize_end_child(false);
     center_split.set_shrink_start_child(false);
-    center_split.set_shrink_end_child(false);
+    center_split.set_shrink_end_child(true);
 
     if let Some(index) = state
         .techniques()

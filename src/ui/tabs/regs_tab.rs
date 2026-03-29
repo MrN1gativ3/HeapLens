@@ -24,6 +24,7 @@ impl RegsTabView {
         let list = gtk::ListBox::new();
 
         root.add_css_class("regs-root");
+        root.set_vexpand(true);
         rip_bar.add_css_class("rip-bar");
         rip_label.add_css_class("rip-label");
         rip_addr.add_css_class("rip-addr");
@@ -32,7 +33,10 @@ impl RegsTabView {
         rip_addr.set_xalign(0.0);
         rip_symbol.set_xalign(0.0);
         flags_row.add_css_class("flags-row");
+        scroller.set_hexpand(true);
         scroller.set_vexpand(true);
+        scroller.set_propagate_natural_height(false);
+        scroller.set_propagate_natural_width(false);
         list.add_css_class("regs-list");
         list.set_selection_mode(gtk::SelectionMode::None);
         scroller.set_child(Some(&list));
